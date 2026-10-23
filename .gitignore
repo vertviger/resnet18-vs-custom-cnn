@@ -1,0 +1,15 @@
+# Ignore datasets
+dataset/
+*.zip
+
+# Ignore trained model weights / checkpoints
+*.pth
+*.pt
+
+# Python build and cache files
+__pycache__/
+*.py[cod]
+
+# IDE settings
+.vscode/
+.idea/
