@@ -3,7 +3,7 @@ dataset/
 *.zip
 
 # Ignore trained model weights / checkpoints
-*.pth
+# *.pth
 *.pt
 
 # Python build and cache files
