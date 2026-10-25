@@ -38,13 +38,13 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_dataset, 
                               batch_size = 32, 
                               shuffle = True, 
-                              num_workers=8, 
+                              num_workers=2, 
                               pin_memory=True)
 
     valid_loader = DataLoader(valid_dataset, 
                               batch_size=32, 
                               shuffle = False, 
-                              num_workers=8, 
+                              num_workers=2, 
                               pin_memory=True)
 
     class_count = len(train_dataset.classes)
