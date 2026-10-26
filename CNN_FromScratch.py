@@ -42,7 +42,7 @@ class CNNFromScratch(nn.Module):
             nn.Flatten(),
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Dropout(0.5),
+            nn.Dropout(0.25),
             nn.Linear(128, num_classes)
         )
     # forward method
@@ -77,19 +77,19 @@ if __name__ == '__main__':
     test_dataset = torchvision.datasets.ImageFolder(os.path.join(dataset_dir, "test"), transform= transform_valid_img)
     
     train_loader = DataLoader(train_dataset, 
-                                  batch_size = 32, 
+                                  batch_size = 64, 
                                   shuffle = True, 
                                   num_workers=2, 
                                   pin_memory=True)
 
     valid_loader = DataLoader(valid_dataset, 
-                                  batch_size=32, 
+                                  batch_size=64, 
                                   shuffle = False, 
                                   num_workers=2, 
                                   pin_memory=True)
 
     test_loader = DataLoader(test_dataset, 
-                                      batch_size=32, 
+                                      batch_size=64, 
                                       shuffle = False, 
                                       num_workers=2, 
                                       pin_memory=True)
@@ -101,8 +101,9 @@ if __name__ == '__main__':
 
     model = CNNFromScratch(class_count).to(hardware)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr = 0.001, weight_decay=1e-4)
-
+    optimizer = optim.AdamW(model.parameters(), lr = 0.0005, weight_decay=1e-4)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=16, factor=0.5)
+    # let the user choose whether to retrain the model or just run test case
     choice = input("Select Y for training, N for test (Y/N): ").strip().upper()
     # Training and Test selected
     if choice == 'Y':
@@ -118,8 +119,10 @@ if __name__ == '__main__':
 
         print("Starting training/validation phase")
         # training setup
-        number_epochs = 30
+        count = 0
+        number_epochs = 200
         for epoch in range(number_epochs):
+            count = count + 1
             model.train()
             running_loss = 0.0
             for images, labels in train_loader:
@@ -146,10 +149,10 @@ if __name__ == '__main__':
                     total += labels.size(0)
                     correct += (predicted == labels).sum().item()
                 avg_val_loss = val_loss/len(valid_loader)
+                scheduler.step(avg_val_loss)
                 accuracy = 100*correct/total
-                print(f"Validation accuracy: {accuracy}")
-
-            # saving weights if the accuracy is better than saved
+                print(f"Epoch N{count} Validation accuracy: {accuracy}, Validation loss: {avg_val_loss}, Best Saved Loss: {best_val_loss}")
+            # saving weights if the loss is better than saved
             if avg_val_loss < best_val_loss:
                 best_val_loss = avg_val_loss
                 checkpoint = {
