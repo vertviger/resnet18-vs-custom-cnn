@@ -199,18 +199,18 @@ if __name__ == '__main__':
             all_predictions.extend(predicted.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
             correct += (predicted == labels).sum().item()
-
-            for i in range(labels.size(0)):
-                true_lbl = labels[i].item()
-                pred_lbl = predicted[i].item()
-                if true_lbl != pred_lbl:
-                    if true_lbl not in class_worst_examples:
-                        global_idx = batch_idx * test_loader.batch_size + i
-                        img_path, _ = test_dataset.imgs[global_idx]
-                        class_worst_examples[true_lbl] = {
-                            'path': img_path, 
-                            'pred': train_dataset.classes[pred_lbl]
-                        }
+            if len(class_worst_examples) < class_count:
+                for i in range(labels.size(0)):
+                    true_lbl = labels[i].item()
+                    pred_lbl = predicted[i].item()
+                    if true_lbl != pred_lbl:
+                        if true_lbl not in class_worst_examples:
+                            global_idx = batch_idx * test_loader.batch_size + i
+                            img_path, _ = test_dataset.imgs[global_idx]
+                            class_worst_examples[true_lbl] = {
+                                'path': img_path, 
+                                'pred': train_dataset.classes[pred_lbl]
+                            }
     
     accuracy = 100*correct/total
     print(f"Test accuracy: {accuracy:.2f}%")
