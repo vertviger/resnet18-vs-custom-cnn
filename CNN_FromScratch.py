@@ -1,5 +1,3 @@
-from matplotlib import pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -8,7 +6,7 @@ from torch.utils.data import DataLoader
 import torch.nn as nn 
 from torch import optim
 import time
-from PIL import Image
+from test_and_visualize_model import test_and_visalize
 
 # CNN class
 class CNNFromScratch(nn.Module):
@@ -182,69 +180,4 @@ if __name__ == '__main__':
         raise ValueError("Invalid selection!")
 
     # test phase
-    model.eval()
-    all_predictions = []
-    all_labels = []
-    total = 0
-    correct = 0
-
-    class_worst_examples = {}
-
-    with torch.no_grad():
-        for batch_idx, (images, labels) in enumerate(test_loader):
-            images, labels = images.to(hardware), labels.to(hardware)
-            outputs = model(images)
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            all_predictions.extend(predicted.cpu().numpy())
-            all_labels.extend(labels.cpu().numpy())
-            correct += (predicted == labels).sum().item()
-            if len(class_worst_examples) < class_count:
-                for i in range(labels.size(0)):
-                    true_lbl = labels[i].item()
-                    pred_lbl = predicted[i].item()
-                    if true_lbl != pred_lbl:
-                        if true_lbl not in class_worst_examples:
-                            global_idx = batch_idx * test_loader.batch_size + i
-                            img_path, _ = test_dataset.imgs[global_idx]
-                            class_worst_examples[true_lbl] = {
-                                'path': img_path, 
-                                'pred': train_dataset.classes[pred_lbl]
-                            }
-    
-    accuracy = 100*correct/total
-    print(f"Test accuracy: {accuracy:.2f}%")
-    
-    # confusion matrix setup
-    cm = confusion_matrix(all_labels, all_predictions)
-    
-    # individual class accuracies
-    class_accuracies = cm.diagonal() / cm.sum(axis=1) * 100
-    
-    # visualizing missclassified images
-    fig, axes = plt.subplots(2, 4, figsize = (16,8))
-    axes = axes.flatten()
-
-    for class_idx, class_name in enumerate(train_dataset.classes):
-        ax = axes[class_idx]
-        class_acc = class_accuracies[class_idx]
-        if class_idx in class_worst_examples:
-            ex = class_worst_examples[class_idx]
-            img = Image.open(ex['path'])
-            ax.imshow(img)
-            ax.set_title(f"Class: {class_name}\nAcc: {class_acc:.1f}\nMissclassified as: {ex['pred']}", color = 'green', fontsize = 9)
-        else:
-            ax.text(0.5, 0.5, f"No errors for\n{class_name}!", horizontalalignment='center', verticalalignment='center', fontsize=10)
-            ax.set_title(f"Class: {class_name}\nAcc: {class_acc:.1f}%", color='green', fontsize=9)
-            
-        ax.axis('off')
-    axes[7].axis('off')
-    plt.suptitle('Custom CNN per-class performance showcase')
-    plt.tight_layout()
-    plt.show()
-
-    # confusion matrix display
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels = train_dataset.classes)
-    disp.plot(cmap = plt.cm.Greens)
-    plt.title(f"Test confusion matrix, accuracy: {accuracy:.2f}%")
-    plt.show()
+    test_and_visalize(model=model, test_loader=test_loader, test_dataset=test_dataset, hardware=hardware, class_count=class_count, model_name="Custom CNN")
