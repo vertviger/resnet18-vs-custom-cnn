@@ -62,6 +62,9 @@ if __name__ == '__main__':
     # images transformations Imagenet means and stds
     transform_tran_img = transforms.Compose([
         transforms.Resize((224, 224)), 
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomRotation(degrees=10),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
         transforms.ToTensor(),
         transforms.Normalize(mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225])
     ])
@@ -78,13 +81,13 @@ if __name__ == '__main__':
     test_dataset = torchvision.datasets.ImageFolder(os.path.join(dataset_dir, "test"), transform= transform_valid_img)
     
     train_loader = DataLoader(train_dataset, 
-                                  batch_size = 64, 
+                                  batch_size = 32, 
                                   shuffle = True, 
                                   num_workers=2, 
                                   pin_memory=True)
 
     valid_loader = DataLoader(valid_dataset, 
-                                  batch_size=64, 
+                                  batch_size=32, 
                                   shuffle = False, 
                                   num_workers=2, 
                                   pin_memory=True)
