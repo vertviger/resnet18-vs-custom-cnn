@@ -6,7 +6,9 @@ from torch.utils.data import DataLoader
 import torch.nn as nn 
 from torch import optim
 import time
+
 from test_and_visualize_model import test_and_visalize
+from set_seed import set_seed
 
 # CNN class
 class CNNFromScratch(nn.Module):
@@ -41,7 +43,7 @@ class CNNFromScratch(nn.Module):
             nn.Flatten(),
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Dropout(0.25),
+            nn.Dropout(0.1),
             nn.Linear(128, num_classes)
         )
     # forward method
@@ -52,8 +54,8 @@ class CNNFromScratch(nn.Module):
 
 if __name__ == '__main__':
 
-# time measures
-
+# seed setting
+    set_seed()
     # used hardware check
     hardware = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Training using: {hardware}")
@@ -100,8 +102,8 @@ if __name__ == '__main__':
 
     model = CNNFromScratch(class_count).to(hardware)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr = 0.0005, weight_decay=1e-4)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=16, factor=0.5)
+    optimizer = optim.AdamW(model.parameters(), lr = 0.0005, weight_decay=1e-3)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=8, factor=0.5)
     # let the user choose whether to retrain the model or just run test case
     choice = input("Select Y for training, N for test (Y/N): ").strip().upper()
     # Training and Test selected
@@ -119,7 +121,7 @@ if __name__ == '__main__':
         print("Starting training/validation phase")
         # training setup
         count = 0
-        number_epochs = 200
+        number_epochs = 100
         for epoch in range(number_epochs):
             count = count + 1
             model.train()

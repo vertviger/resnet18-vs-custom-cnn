@@ -7,11 +7,12 @@ from torchvision.models import resnet18, ResNet18_Weights
 import torch.nn as nn 
 from torch import optim
 import time
-
+from set_seed import set_seed
 from test_and_visualize_model import test_and_visalize
 
 if __name__ == '__main__':
-
+    # set seed 
+    set_seed()
     # time measures
     start_time = time.perf_counter()
 
