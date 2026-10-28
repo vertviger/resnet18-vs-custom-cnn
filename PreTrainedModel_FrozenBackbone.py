@@ -117,7 +117,7 @@ if __name__ == '__main__':
                     correct += (predicted == labels).sum().item()
                 avg_val_loss = val_loss/len(valid_loader)
                 accuracy = 100*correct/total
-                print(f"Epoch N{count} Validation accuracy: {accuracy}, Validation loss: {avg_val_loss}, Best Saved Loss: {best_val_loss}")
+                print(f"Epoch N{count} Validation accuracy: {accuracy:.2f}, Validation loss: {avg_val_loss:.2f}, Best Saved Loss: {best_val_loss:.2f}")
             
             # saving weights if the loss is better than saved
             if avg_val_loss < best_val_loss:

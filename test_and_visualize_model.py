@@ -2,8 +2,10 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 import torch
 from PIL import Image, ImageOps
+import time
 
 def test_and_visalize(model, test_loader, test_dataset, hardware, class_count, model_name = "Model"):
+    start_time = time.perf_counter()
     # test phase
     model.eval()
     all_predictions = []
@@ -34,6 +36,10 @@ def test_and_visalize(model, test_loader, test_dataset, hardware, class_count, m
                                 'path': img_path, 
                                 'pred': test_dataset.classes[pred_lbl]
                             }
+    
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    print(f"Test took {elapsed_time:.2f} seconds")
     
     accuracy = 100*correct/total
     print(f"Test accuracy: {accuracy:.2f}%")
