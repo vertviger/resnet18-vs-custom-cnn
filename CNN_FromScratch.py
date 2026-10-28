@@ -102,8 +102,8 @@ if __name__ == '__main__':
 
     model = CNNFromScratch(class_count).to(hardware)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr = 0.0005, weight_decay=1e-3)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=8, factor=0.5)
+    optimizer = optim.AdamW(model.parameters(), lr = 0.001, weight_decay=1e-3)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=8, factor=0.2)
     # let the user choose whether to retrain the model or just run test case
     choice = input("Select Y for training, N for test (Y/N): ").strip().upper()
     # Training and Test selected
@@ -152,7 +152,7 @@ if __name__ == '__main__':
                 avg_val_loss = val_loss/len(valid_loader)
                 scheduler.step(avg_val_loss)
                 accuracy = 100*correct/total
-                print(f"Epoch N{count} Validation accuracy: {accuracy}, Validation loss: {avg_val_loss}, Best Saved Loss: {best_val_loss}")
+                print(f"Epoch N{count} Validation accuracy: {accuracy:.2f}, Validation loss: {avg_val_loss:.2f}, Best Saved Loss: {best_val_loss:.2f}")
             # saving weights if the loss is better than saved
             if avg_val_loss < best_val_loss:
                 best_val_loss = avg_val_loss
