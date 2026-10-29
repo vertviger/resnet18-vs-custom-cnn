@@ -1,8 +1,10 @@
 # Pretrained VS Custom CNN Diagnosis
 
 **Task**: Car body type classification
-**Models Compared**: Custom CNN, [Resnet18]([url](https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet18.html)) with un/frozen backbone
-**Dataset**: [Car Body Types Dataset]([url](https://www.kaggle.com/datasets/ademboukhris/cars-body-type-cropped)) (7550 images), 70/15/15 split.
+
+**Models Compared**: Custom CNN, [Resnet18](https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet18.html) with un/frozen backbone
+
+**Dataset**: [Car Body Types Dataset](https://www.kaggle.com/datasets/ademboukhris/cars-body-type-cropped) (7550 images), 70/15/15 split.
 
 Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 | :--- | :--- | :--- | :--- |
@@ -13,16 +15,16 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 **N Epochs** | 100 | 10 | 10
 
 ## Custom CNN Settings
-    **Sequential CNN Layers**: (3 -> 32 -> 64 -> 128 -> 256 features)
-    **Head**: (256 -> 128)
-    **Kernel size**: 3x3
-    **Optimizer**: AdamW
-    **N Epochs**: 100
-    **Lr**: 1e-4
-    **ReduceLROnPlateau**: _patience_ - 8, _mode_ - min, _scale_ - 0.2
-    **Batch size**: 64
-    **Weight Decay**: 1e-3
-    **Dropout Probability**: 0.1
+    Sequential CNN Layers: 3 -> 32 -> 64 -> 128 -> 256 features
+    Head: 256 -> 128
+    Kernel size: 3x3
+    Optimizer: AdamW
+    N Epochs: 100
+    Lr: 1e-4
+    ReduceLROnPlateau: _patience_ - 8, _mode_ - min, _scale_ - 0.2
+    Batch size: 64
+    Weight Decay: 1e-3
+    Dropout Probability: 0.1
 
 ## Performance Comparison
 | Parameter | Custom CNN | Resnet18_Frozen | Resnet18 |
@@ -40,15 +42,15 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="400"><br>
+      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="600"><br>
       <b>Custom CNN</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="400"><br>
+      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="600"><br>
       <b>Resnet18_Frozen</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="400"><br>
+      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="600"><br>
       <b>Resnet18</b>
     </td>
   </tr>
