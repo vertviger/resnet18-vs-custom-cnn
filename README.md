@@ -40,15 +40,15 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="350"><br>
+      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="400"><br>
       <b>Custom CNN</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="350"><br>
+      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="400"><br>
       <b>Resnet18_Frozen</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="350"><br>
+      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="400"><br>
       <b>Resnet18</b>
     </td>
   </tr>
@@ -60,10 +60,12 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 * When a model requires deep and more complex, or contrary, simple architecture for specific hardware.
 * When full control over model architecture is desired. 
 * A good choice when the goal is to learn how CNN architecture works behind the scenes.
+
 **Frozen Backbone Use Cases**: 
 * Hardware capacity is severely limited and/or the dataset is extremely small. 
 * Can adapt quickly to new datasets, with compromise on accuracy. 
 * Since the dense layer is the only one being trained and also is decision making, the number of trainable parameters is limited. 
+
 **Partial Fine-Tuning Use Cases**: 
 * For non-specific visual classification tasks. 
 * Model can pick up visual clues and patterns on low levels,
