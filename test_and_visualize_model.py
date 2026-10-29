@@ -53,7 +53,9 @@ def test_and_visalize(model, test_loader, test_dataset, hardware, class_count, m
     # visualizing missclassified images
     fig, axes = plt.subplots(2, 4, figsize = (16,8))
     axes = axes.flatten()
-
+    
+    plt.style.use('dark_background') #for git if needed
+    
     for class_idx, class_name in enumerate(test_dataset.classes):
         ax = axes[class_idx]
         class_acc = class_accuracies[class_idx]
@@ -74,7 +76,8 @@ def test_and_visalize(model, test_loader, test_dataset, hardware, class_count, m
     plt.show()
 
     # confusion matrix display
+    fig, ax = plt.subplots(figsize=(8, 6))
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels = test_dataset.classes)
-    disp.plot(cmap = plt.cm.Greens)
+    disp.plot(cmap = plt.cm.Greens, ax = ax)
     plt.title(f"Test confusion matrix, accuracy: {accuracy:.2f}%")
     plt.show()
