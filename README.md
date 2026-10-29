@@ -31,15 +31,15 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="600"><br>
+      <img src="https://github.com/user-attachments/assets/caa52b6c-e6c3-4b72-b77c-6384b748dd79" width="600"><br>
       <b>Custom CNN</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="600"><br>
+      <img src="https://github.com/user-attachments/assets/b2fbc78b-6560-4bb5-95d9-55d09f021f64" width="600"><br>
       <b>Resnet18_Frozen</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="600"><br>
+      <img src="https://github.com/user-attachments/assets/3d4825c7-7c95-4f9a-83eb-943a9759637e" width="600"><br>
       <b>Resnet18</b>
     </td>
   </tr>
