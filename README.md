@@ -40,15 +40,15 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="200"><br>
+      <img src="https://github.com/user-attachments/assets/b3d0c2ac-22f3-4d84-86c8-7f2d9111c3f8" width="350"><br>
       <b>Custom CNN</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="200"><br>
+      <img src="https://github.com/user-attachments/assets/5c340243-dcaa-4126-907c-7055e517da5c" width="350"><br>
       <b>Resnet18_Frozen</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="200"><br>
+      <img src="https://github.com/user-attachments/assets/ba5efa82-7498-48fb-b5c3-c46bdc684984" width="350"><br>
       <b>Resnet18</b>
     </td>
   </tr>
@@ -56,16 +56,18 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 
 ## Verdict
 **Custom CNN Use Cases**: 
-  The task is highly specific, so that model pretrained on generic dataset would be of no use (non-natural imagery). 
-  When a model requires deep and more complex, or contrary, simple architecture for specific hardware. When full control over model architecture is desired. 
-  A good choice when the goal is to learn how CNN architecture works behind the scenes.
+* The task is highly specific, so that model pretrained on generic dataset would be of no use (non-natural imagery). 
+* When a model requires deep and more complex, or contrary, simple architecture for specific hardware.
+* When full control over model architecture is desired. 
+* A good choice when the goal is to learn how CNN architecture works behind the scenes.
 **Frozen Backbone Use Cases**: 
-  Hardware capacity is severely limited and/or the dataset is extremely small. 
-  Can adapt quickly to new datasets, with compromise on accuracy. 
-  Since the dense layer is the only one being trained and also is decision making, the number of trainable parameters is limited. 
+* Hardware capacity is severely limited and/or the dataset is extremely small. 
+* Can adapt quickly to new datasets, with compromise on accuracy. 
+* Since the dense layer is the only one being trained and also is decision making, the number of trainable parameters is limited. 
 **Partial Fine-Tuning Use Cases**: 
-  For non-specific visual classification tasks. 
-  Model can pick up visual clues and patterns on low levels, retrained high levels produce accurate predictions for imagery related to one the low layers were trained on. 
-  Works well for where high-level features need domain adaptation. 
-  Relatively cheap and fast training process resulting in high accuracy. 
-  Limited control over model architecture.
+* For non-specific visual classification tasks. 
+* Model can pick up visual clues and patterns on low levels,
+* retrained high levels produce accurate predictions for imagery related to one the low layers were trained on. 
+* Works well for where high-level features need domain adaptation. 
+* Relatively cheap and fast training process resulting in high accuracy. 
+* Limited control over model architecture.
