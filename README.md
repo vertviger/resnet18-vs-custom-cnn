@@ -6,6 +6,7 @@
 
 **Dataset**: [Car Body Types Dataset](https://www.kaggle.com/datasets/ademboukhris/cars-body-type-cropped) (7550 images), 70/15/15 split.
 
+## Settings comparison
 Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 | :--- | :--- | :--- | :--- |
 **Backbone** | 4 Conv. Blocks | Frozen | Unfrozen Layer 4
@@ -13,18 +14,6 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 **N Parameters** | ~400k | ~3.5k | ~11.8m
 **Learning Rate** | Red. On Plateau (1e-4) | Constant (1e-4) | Layer 4: 1e-4, FC: 1e-3
 **N Epochs** | 100 | 10 | 10
-
-## Custom CNN Settings
-    Sequential CNN Layers: 3 -> 32 -> 64 -> 128 -> 256 features
-    Head: 256 -> 128
-    Kernel size: 3x3
-    Optimizer: AdamW
-    N Epochs: 100
-    Lr: 1e-4
-    ReduceLROnPlateau: _patience_ - 8, _mode_ - min, _scale_ - 0.2
-    Batch size: 64
-    Weight Decay: 1e-3
-    Dropout Probability: 0.1
 
 ## Performance Comparison
 | Parameter | Custom CNN | Resnet18_Frozen | Resnet18 |
@@ -70,8 +59,16 @@ Parameter | Custom CNN | Resnet18_Frozen | Resnet18
 
 **Partial Fine-Tuning Use Cases**: 
 * For non-specific visual classification tasks. 
-* Model can pick up visual clues and patterns on low levels,
-* retrained high levels produce accurate predictions for imagery related to one the low layers were trained on. 
+* Model can pick up visual clues and patterns on low levels
+* Retrained high levels produce accurate predictions for imagery related to one the low layers were trained on. 
 * Works well for where high-level features need domain adaptation. 
 * Relatively cheap and fast training process resulting in high accuracy. 
 * Limited control over model architecture.
+
+## Run instructions
+    1. Have Python installed
+    2. Install required external libraries, can be done via command
+    pip install torch torchvision scikit-learn matplotlib pillow
+    3. Install dataset of your choice, or follow link in the Readme for car body types dataset
+    4. Ensure dataset structure is as follows: dataset/train | dataset/valid | dataset/test
+    5. Run the models, follow prompts from the console to select run mode (training/testing)
